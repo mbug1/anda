@@ -1,31 +1,113 @@
-/* Sitio de torneos: primero celular, sin dependencias externas. */
+/* Sitio A.N.D.A.: primero celular, sin dependencias externas.
+   Los colores de la marca salen de un TEMA (atributo data-tema en <html>, elegido en generar.py):
+   cada tema define su logo, el encabezado y el acento. Dorado/plateado/bronce: solo el podio. */
 :root {
-  --fondo: #f7f6f2;
+  --fondo: #ffffff;
   --superficie: #ffffff;
-  --texto: #1d1d1b;
-  --suave: #5f5e58;
-  --borde: #dedcd4;
-  --acento: #1f5f8b;
-  --acento-texto: #ffffff;
-  --fila: #f1efe9;
-  --aviso-fondo: #fff4d6;
-  --aviso-borde: #e0b84c;
-  --radio: 10px;
+  --fila: #f5f5f3;               /* filas alternadas */
+  --texto: #121212;
+  --suave: #5c5c5a;
+  --borde: #e2e2df;
+  --gana: #17703f;  --gana-fondo: #e2f1e7;
+  --tablas: #5f5f5f; --tablas-fondo: #ececea;
+  --pierde: #a8231b; --pierde-fondo: #f8e1de;
+  --oro: #c9a227; --plata: #a9adb2; --bronce: #b8773f;
+  --aviso-fondo: #fbf6e6;
+  --aviso-borde: #d9c27a;
+  --radio: 8px;
+  /* Valores de marca por defecto (los temas los reemplazan) */
+  --logo: none;
+  --cabecera: #111111;           /* fondo del encabezado */
+  --cabecera-titulo: #ffffff;    /* "A.N.D.A." y menú */
+  --cabecera-sub: #bbbbbb;       /* nombre completo */
+  --cabecera-borde: transparent;
+  --menu-hover: rgba(255, 255, 255, .14);
+  --menu-activo: #ffffff;
+  --menu-activo-texto: #111111;
+  --acento: #333333;             /* enlaces (con contraste suficiente sobre el fondo) */
+  --acento-fuerte: #000000;
+  --linea: #bbbbbb;              /* bordes de tarjetas y botones */
+  --boton: #111111;              /* botón activo y encabezados de tabla */
+  --boton-texto: #ffffff;
+  --fondo-suave: #f4f4f4;        /* bloques destacados (cifras de la portada) */
+  --enlace-linea: none;          /* subrayado de enlaces en tablas y listas */
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --fondo: #151514;
-    --superficie: #1f1f1d;
-    --texto: #ecebe6;
-    --suave: #a3a199;
-    --borde: #3a3935;
-    --acento: #7db7e0;
-    --acento-texto: #10202c;
-    --fila: #262624;
-    --aviso-fondo: #3a3018;
-    --aviso-borde: #8a7130;
+    --fondo: #0f0f0f;
+    --superficie: #171717;
+    --fila: #1d1d1d;
+    --texto: #f0f0ee;
+    --suave: #a8a8a4;
+    --borde: #303030;
+    --gana: #7cd69e;  --gana-fondo: #163524;
+    --tablas: #bdbdbd; --tablas-fondo: #2a2a2a;
+    --pierde: #f19a91; --pierde-fondo: #3d1c19;
+    --aviso-fondo: #2e2814;
+    --aviso-borde: #7a6a33;
+    --acento: #e6e6e6;
+    --acento-fuerte: #ffffff;
+    --boton: #222222;
+    --fondo-suave: #1b1b1b;
     color-scheme: dark;
+  }
+}
+
+/* ---------------------------------------------------------------- temas
+   Los logos tienen colores fijos: el encabezado conserva su fondo también en modo oscuro.
+   Donde el color de acento no contrasta como texto sobre blanco, los enlaces usan un tono más oscuro
+   del mismo color; el acento puro queda para bordes, botones y el subtítulo. */
+:root[data-tema="carbon-dorado"] {
+  --logo: url(logo-anda-carbon-dorado.svg);
+  --cabecera: #1C1C1E; --cabecera-titulo: #F3E9CF; --cabecera-sub: #C9A227; --cabecera-borde: #C9A227;
+  --menu-hover: rgba(243, 233, 207, .12); --menu-activo: #C9A227; --menu-activo-texto: #1C1C1E;
+  --acento: #7F6410; --acento-fuerte: #5a470b; --linea: #C9A227;
+  --boton: #1C1C1E; --boton-texto: #F3E9CF; --fondo-suave: #FAF5E6;
+}
+:root[data-tema="marino-celeste"] {
+  --logo: url(logo-anda-marino-celeste.svg);
+  --cabecera: #14213D; --cabecera-titulo: #FFFFFF; --cabecera-sub: #75AADB;
+  --menu-hover: rgba(255, 255, 255, .12); --menu-activo: #75AADB; --menu-activo-texto: #14213D;
+  --acento: #1F5C99; --acento-fuerte: #14213D; --linea: #75AADB;
+  --boton: #14213D; --boton-texto: #FFFFFF; --fondo-suave: #EEF5FB;
+}
+:root[data-tema="gris-claro"] {
+  --logo: url(logo-anda-gris-claro.svg);
+  --cabecera: #EFEFEF; --cabecera-titulo: #1A1A1A; --cabecera-sub: #555555; --cabecera-borde: #D6D6D6;
+  --menu-hover: rgba(0, 0, 0, .07); --menu-activo: #1A1A1A; --menu-activo-texto: #FFFFFF;
+  --acento: #555555; --acento-fuerte: #1A1A1A; --linea: #555555;
+  --boton: #EFEFEF; --boton-texto: #1A1A1A; --fondo-suave: #F5F5F5; --enlace-linea: underline;
+}
+:root[data-tema="celeste-blanco"] {
+  --logo: url(logo-anda-celeste-blanco.svg);
+  --cabecera: #FFFFFF; --cabecera-titulo: #1D4E89; --cabecera-sub: #75AADB; --cabecera-borde: #75AADB;
+  --menu-hover: rgba(29, 78, 137, .08); --menu-activo: #1D4E89; --menu-activo-texto: #FFFFFF;
+  --acento: #1D4E89; --acento-fuerte: #12355f; --linea: #75AADB;
+  --boton: #1D4E89; --boton-texto: #FFFFFF; --fondo-suave: #EEF5FB;
+}
+:root[data-tema="negro-blanco"] {
+  --logo: url(logo-anda-negro-blanco.svg);
+  --cabecera: #111111; --cabecera-titulo: #FFFFFF; --cabecera-sub: #BBBBBB;
+  --menu-hover: rgba(255, 255, 255, .12); --menu-activo: #FFFFFF; --menu-activo-texto: #111111;
+  --acento: #111111; --acento-fuerte: #000000; --linea: #BBBBBB;
+  --boton: #111111; --boton-texto: #FFFFFF; --fondo-suave: #F4F4F4; --enlace-linea: underline;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-tema="carbon-dorado"] {
+    --cabecera-borde: #5a4a17; --acento: #D9B850; --acento-fuerte: #F3E9CF; --boton: #1C1C1E; --fondo-suave: #1f1b12;
+  }
+  :root[data-tema="marino-celeste"] {
+    --cabecera-borde: #26375c; --acento: #8DBDE6; --acento-fuerte: #c4ddf3; --boton: #1b2c50; --fondo-suave: #111b2b;
+  }
+  :root[data-tema="gris-claro"] {
+    --acento: #cfcfcf; --acento-fuerte: #ffffff; --linea: #8a8a8a; --boton: #2a2a2a; --boton-texto: #f0f0f0; --fondo-suave: #1c1c1c;
+  }
+  :root[data-tema="celeste-blanco"] {
+    --acento: #8DBDE6; --acento-fuerte: #c4ddf3; --boton: #1D4E89; --fondo-suave: #111b2b;
+  }
+  :root[data-tema="negro-blanco"] {
+    --cabecera-borde: #333333; --acento: #e6e6e6; --acento-fuerte: #ffffff; --boton: #222222; --fondo-suave: #1b1b1b;
   }
 }
 
@@ -36,50 +118,76 @@ body {
   margin: 0;
   background: var(--fondo);
   color: var(--texto);
-  font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
-a { color: var(--acento); text-underline-offset: 2px; }
-h1 { font-size: 1.6rem; line-height: 1.2; margin: .4rem 0 .6rem; }
-h2 { font-size: 1.2rem; margin: 1.8rem 0 .6rem; }
+a { color: var(--acento); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--acento-fuerte); }
+h1, h2 { letter-spacing: -.01em; font-weight: 700; }
+h1 { font-size: 1.6rem; line-height: 1.2; margin: .5rem 0 .7rem; }
+h2 { font-size: 1.2rem; line-height: 1.3; margin: 2rem 0 .6rem; }
 .meta, .nota { color: var(--suave); font-size: .9rem; }
 .nota { margin-top: .6rem; }
 .bajada { color: var(--suave); margin-top: 0; }
-.fuerte { font-weight: 600; }
+.fuerte { font-weight: 700; }
+.visual-oculto {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* Logo del tema (colores fijos) */
+.logo { display: inline-block; flex: none; background: var(--logo) center / contain no-repeat; }
 
 /* Cabecera */
-.cabecera {
-  background: var(--superficie);
-  border-bottom: 1px solid var(--borde);
-  position: sticky; top: 0; z-index: 10;
-}
+.cabecera { background: var(--cabecera); color: var(--cabecera-titulo); border-bottom: 2px solid var(--cabecera-borde); }
+@media (min-width: 40rem) { .cabecera { position: sticky; top: 0; z-index: 10; } }
 .cabecera-in {
-  max-width: 60rem; margin: 0 auto; padding: .6rem 1rem;
+  max-width: 60rem; margin: 0 auto; padding: .5rem 1rem;
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .4rem 1rem;
 }
-.marca { font-weight: 700; color: var(--texto); text-decoration: none; }
-.menu { display: flex; gap: .25rem; flex-wrap: wrap; }
-.menu a {
-  padding: .35rem .7rem; border-radius: 999px; text-decoration: none; color: var(--texto);
+.marca {
+  display: inline-flex; align-items: center; gap: .7rem;
+  color: var(--cabecera-titulo); text-decoration: none;
 }
-.menu a[aria-current="page"] { background: var(--acento); color: var(--acento-texto); }
+.marca:hover { color: var(--cabecera-titulo); }
+.marca .logo { width: 3.1rem; height: 5.5rem; }
+.marca-textos { display: flex; flex-direction: column; line-height: 1.15; }
+.marca-sigla { font-weight: 800; font-size: 1.5rem; letter-spacing: .14em; color: var(--cabecera-titulo); }
+.marca-nombre { font-size: .95rem; color: var(--cabecera-sub); }
+.menu { display: flex; gap: .2rem; flex-wrap: wrap; }
+.menu a {
+  padding: .35rem .8rem; border-radius: 999px; text-decoration: none; color: var(--cabecera-titulo); font-weight: 500;
+}
+.menu a:hover { background: var(--menu-hover); color: var(--cabecera-titulo); }
+.menu a[aria-current="page"] { background: var(--menu-activo); color: var(--menu-activo-texto); font-weight: 600; }
 
-.contenido { max-width: 60rem; margin: 0 auto; padding: 1rem 1rem 2rem; }
-.pie { max-width: 60rem; margin: 0 auto; padding: 1rem; border-top: 1px solid var(--borde); color: var(--suave); font-size: .85rem; }
-.miga { margin: 0; font-size: .9rem; }
+.contenido { max-width: 60rem; margin: 0 auto; padding: 1rem 1rem 2.5rem; }
+.pie {
+  max-width: 60rem; margin: 0 auto; padding: 1rem;
+  border-top: 1px solid var(--borde); color: var(--suave); font-size: .85rem;
+}
+.miga { margin: .2rem 0 0; font-size: .9rem; }
 
 /* Inicio */
+.portada { margin: .5rem 0 1rem; }
+.portada h1 { margin-bottom: .2rem; }
 .cifras { display: flex; flex-wrap: wrap; gap: .75rem; margin: 1rem 0; padding: 0; }
-.cifras div { background: var(--superficie); border: 1px solid var(--borde); border-radius: var(--radio); padding: .6rem 1rem; min-width: 7rem; }
-.cifras dt { color: var(--suave); font-size: .85rem; }
-.cifras dd { margin: 0; font-size: 1.4rem; font-weight: 700; }
+.cifras div {
+  background: var(--superficie); border: 1px solid var(--borde); border-radius: var(--radio);
+  padding: .6rem 1rem; min-width: 7rem; border-top: 3px solid var(--linea);
+  background: var(--fondo-suave);
+}
+.cifras dt { color: var(--suave); font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; }
+.cifras dd { margin: 0; font-size: 1.5rem; font-weight: 700; font-variant-numeric: tabular-nums; }
 .tarjetas { display: grid; gap: .75rem; grid-template-columns: 1fr; margin: 1.5rem 0; }
 @media (min-width: 40rem) { .tarjetas { grid-template-columns: repeat(3, 1fr); } }
 .tarjeta {
   display: block; background: var(--superficie); border: 1px solid var(--borde); border-radius: var(--radio);
-  padding: 1rem; text-decoration: none; color: var(--texto);
+  padding: 1rem; text-decoration: none; color: var(--texto); transition: border-color .15s;
+  border-top: 3px solid var(--linea);
 }
-.tarjeta:hover { border-color: var(--acento); }
+.tarjeta:hover { border-color: var(--acento); color: var(--texto); }
 .tarjeta h2 { margin: 0 0 .3rem; color: var(--acento); }
+.tarjeta h2::after { content: " →"; }
 .tarjeta p { margin: 0; color: var(--suave); }
 
 /* Listas */
@@ -88,9 +196,12 @@ h2 { font-size: 1.2rem; margin: 1.8rem 0 .6rem; }
   background: var(--superficie); border: 1px solid var(--borde); border-radius: var(--radio);
   padding: .6rem .8rem; margin-bottom: .5rem;
 }
+.lista-torneos a, .lista-jugadores a { font-weight: 600; }
 .lista-torneos .meta { display: block; }
+.ganador { display: flex; align-items: center; gap: .35rem; margin-top: .3rem; font-size: .9rem; }
+.ganador .medalla { width: 1.3rem; height: 1.3rem; font-size: .75rem; }
 .lista-jugadores li { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; }
-.anio { border-bottom: 2px solid var(--borde); padding-bottom: .2rem; }
+.anio { border-bottom: 2px solid var(--texto); padding-bottom: .2rem; }
 .etiqueta {
   display: inline-block; font-size: .75rem; padding: .05rem .5rem; margin-left: .3rem; border-radius: 999px;
   background: var(--aviso-fondo); border: 1px solid var(--aviso-borde); vertical-align: middle;
@@ -100,41 +211,87 @@ h2 { font-size: 1.2rem; margin: 1.8rem 0 .6rem; }
 /* Ficha (datos clave) */
 .ficha { display: grid; grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr)); gap: .5rem; margin: 1rem 0; }
 .ficha div { background: var(--superficie); border: 1px solid var(--borde); border-radius: var(--radio); padding: .5rem .75rem; }
-.ficha dt { color: var(--suave); font-size: .8rem; }
+.ficha dt { color: var(--suave); font-size: .75rem; text-transform: uppercase; letter-spacing: .06em; }
 .ficha dd { margin: 0; font-weight: 600; overflow-wrap: anywhere; }
-.codigo { font-family: ui-monospace, monospace; font-weight: 400; }
+.codigo { font-family: ui-monospace, "SF Mono", Consolas, monospace; font-weight: 400; }
 
-/* Saltos dentro de la página */
+/* Saltos dentro de la página (botones) */
 .saltos { display: flex; flex-wrap: wrap; gap: .35rem; margin: 1rem 0; }
 .saltos a {
-  padding: .3rem .65rem; border: 1px solid var(--borde); border-radius: 999px; text-decoration: none;
-  background: var(--superficie); font-size: .9rem;
+  padding: .3rem .7rem; border: 1px solid var(--linea); border-radius: 999px; text-decoration: none;
+  color: var(--acento); font-size: .9rem; font-weight: 600;
 }
-section[id] { scroll-margin-top: 4.5rem; }
+.saltos a:hover { background: var(--boton); border-color: var(--boton); color: var(--boton-texto); }
+section[id] { scroll-margin-top: 5rem; }
 
-/* Tablas: se desplazan dentro de su caja, nunca la página */
-.tabla-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--borde); border-radius: var(--radio); background: var(--superficie); }
-.tabla { border-collapse: collapse; width: 100%; font-size: .95rem; }
-.tabla th, .tabla td { padding: .45rem .6rem; text-align: left; border-bottom: 1px solid var(--borde); white-space: nowrap; }
-.tabla thead th { font-size: .8rem; color: var(--suave); font-weight: 600; background: var(--fila); }
+/* Tablas: se desplazan dentro de su caja (de costado y, si son largas, hacia abajo
+   con el encabezado fijo); la página nunca se ensancha. */
+.tabla-scroll {
+  overflow: auto; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain;
+  max-height: min(75vh, 44rem);
+  border: 1px solid var(--borde); border-radius: var(--radio); background: var(--superficie);
+}
+.tabla { border-collapse: separate; border-spacing: 0; width: 100%; font-size: .95rem; }
+.tabla th, .tabla td { padding: .45rem .65rem; text-align: left; border-bottom: 1px solid var(--borde); white-space: nowrap; }
+.tabla thead th {
+  position: sticky; top: 0; z-index: 1;
+  background: var(--boton); color: var(--boton-texto);
+  font-size: .78rem; font-weight: 600; text-transform: uppercase; letter-spacing: .05em;
+  border-bottom: 0;
+}
 .tabla tbody tr:last-child td { border-bottom: 0; }
-.tabla tbody tr:nth-child(even) { background: var(--fila); }
+.tabla tbody tr:nth-child(even) td { background: var(--fila); }
+.tabla tbody tr:hover td { background: var(--tablas-fondo); }
 .tabla .num { text-align: right; font-variant-numeric: tabular-nums; }
 .tabla .centro { text-align: center; }
-.resultado { font-variant-numeric: tabular-nums; font-weight: 600; }
+.tabla td a, .lista-torneos a, .lista-jugadores a, .participacion h2 a, .ganador a { text-decoration-line: var(--enlace-linea); }
+.tabla td a:hover, .lista-torneos a:hover, .lista-jugadores a:hover, .participacion h2 a:hover { text-decoration: underline; }
+.tabla td a { font-weight: 500; }
 abbr[title] { text-decoration: none; cursor: help; }
 
-.pieza {
-  display: inline-block; width: 1.5rem; height: 1.5rem; line-height: 1.4rem; border-radius: 4px;
-  font-size: .75rem; font-weight: 700; border: 1px solid var(--suave);
+/* Podio: solo los tres primeros */
+.medalla {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 1.6rem; height: 1.6rem; border-radius: 50%;
+  font-weight: 800; font-size: .85rem; color: #1a1a1a; font-variant-numeric: tabular-nums;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .18);
 }
-.pieza.blancas { background: #fff; color: #222; }
-.pieza.negras { background: #222; color: #fff; }
+.medalla-1 { background: var(--oro); }
+.medalla-2 { background: var(--plata); }
+.medalla-3 { background: var(--bronce); }
+.tabla .podio td:first-child { box-shadow: inset 3px 0 0 var(--podio); }
+.tabla .podio-1 { --podio: var(--oro); }
+.tabla .podio-2 { --podio: var(--plata); }
+.tabla .podio-3 { --podio: var(--bronce); }
+.tabla .podio td { font-weight: 600; }
+
+/* Resultados: verde victoria, gris tablas, rojo derrota */
+.res {
+  display: inline-block; min-width: 1.9em; padding: .05em .4em; border-radius: 4px;
+  font-weight: 700; text-align: center; font-variant-numeric: tabular-nums;
+}
+.res-gana { color: var(--gana); background: var(--gana-fondo); }
+.res-tablas { color: var(--tablas); background: var(--tablas-fondo); }
+.res-pierde { color: var(--pierde); background: var(--pierde-fondo); }
+.res-otro { color: var(--suave); font-weight: 400; min-width: 0; padding: 0; }
+.res-mesa { display: inline-flex; align-items: center; gap: .25rem; }
+.res-sep { color: var(--suave); }
+
+/* Cuadrito del color con que jugó */
+.pieza {
+  display: inline-block; width: .85rem; height: .85rem; border-radius: 2px;
+  vertical-align: -.1rem; border: 1px solid #6b6b6b;
+}
+.pieza.blancas { background: #ffffff; }
+.pieza.negras { background: #121212; }
+@media (prefers-color-scheme: dark) { .pieza.negras { background: #000; border-color: #a0a0a0; } }
+thead .pieza { margin-right: .25rem; border-color: var(--boton-texto); }
 
 .sin-rival { margin-top: .5rem; color: var(--suave); font-size: .9rem; }
 .sin-rival li { padding: .15rem 0; }
 .participacion h2 { margin-bottom: .1rem; }
 .participacion .meta { margin-top: 0; }
+.participacion .meta .medalla { width: 1.4rem; height: 1.4rem; font-size: .8rem; }
 
 /* Buscador */
 .buscador label { display: block; font-weight: 600; margin-bottom: .3rem; }
@@ -142,14 +299,18 @@ abbr[title] { text-decoration: none; cursor: help; }
   width: 100%; font: inherit; padding: .65rem .8rem; border-radius: var(--radio);
   border: 1px solid var(--borde); background: var(--superficie); color: var(--texto);
 }
-.buscador input:focus { outline: 2px solid var(--acento); outline-offset: 1px; }
+.buscador input:focus { outline: 2px solid var(--acento); outline-offset: 1px; border-color: transparent; }
 
 @media (max-width: 30rem) {
+  .marca .logo { width: 2.5rem; height: 4.4rem; }
+  .marca-sigla { font-size: 1.3rem; }
+  .marca-nombre { font-size: .85rem; }
+  .menu a { padding: .3rem .65rem; }
   .tabla { font-size: .9rem; }
-  .tabla th, .tabla td { padding: .4rem .4rem; }
-  .pieza { width: 1.3rem; height: 1.3rem; line-height: 1.2rem; }
+  .tabla th, .tabla td { padding: .4rem .45rem; }
 }
 @media (min-width: 40rem) {
   h1 { font-size: 2rem; }
   .lista-torneos .meta { display: inline; margin-left: .5rem; }
 }
+@media (max-width: 22rem) { .marca-nombre { display: none; } }   /* si no entra: solo la sigla */
